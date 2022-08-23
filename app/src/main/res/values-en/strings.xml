@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Contacts</string>
+    <string name="iNuevo">New contac</string>
+    <string name="switchView">Change view</string>
+    <string name="searchView">Search contact...</string>
+    <string name="tvTelefono">Phone</string>
+    <string name="tvEmail">Email</string>
+    <string name="tvDireccion">Adress</string>
+    <string name="tvEdad">Age</string>
+    <string name="tvCumpleanos">Birthday</string>
+    <string name="tvNombre">Name</string>
+    <string name="tvApellidos">Last name</string>
+    <string name="tvEmpresa">Business</string>
+    <string name="tvNumeroTelefono">Phone number</string>
+    <string name="iCrearContacto">Create new contact</string>
+    <string name="iEliminarContacto">Delete contact</string>
+    <string name="iEditarContacto">Edit contact</string>
+    <string name="tvanos">years old</string>
+    <string name="tvRellenecorrecto">Fill in all the fields correctly and choose an image</string>
+    <string name="tvContactoModificado">Contact modified successfully</string>
+    <string name="tvContactoAñadido">Contact added successfully</string>
+    <string name="tvSeleccionarImagen">Select profile picture</string>
+    <string name="tvCancelar">Cancel</string>
+</resources>

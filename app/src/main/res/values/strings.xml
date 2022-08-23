@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Contactos</string>
+    <string name="iNuevo">Nuevo contacto</string>
+    <string name="switchView">Cambiar vista</string>
+    <string name="searchView">Buscar contacto...</string>
+    <string name="tvTelefono">Teléfono</string>
+    <string name="tvEmail">Email</string>
+    <string name="tvDireccion">Dirección</string>
+    <string name="tvEdad">Edad</string>
+    <string name="tvCumpleanos">Cumpleaños</string>
+    <string name="tvNombre">Nombre</string>
+    <string name="tvApellidos">Apellidos</string>
+    <string name="tvEmpresa">Empresa</string>
+    <string name="tvNumeroTelefono">Numero de teléfono</string>
+    <string name="iCrearContacto">Crear nuevo contacto</string>
+    <string name="iEliminarContacto">Eliminar contacto</string>
+    <string name="iEditarContacto">Editar Contacto</string>
+    <string name="tvanos">años</string>
+    <string name="tvRellenecorrecto">Rellene correctamente todos los campos y escoja una imagen</string>
+    <string name="tvContactoModificado">Contacto modificado correctamente</string>
+    <string name="tvContactoAñadido">Contacto añadido correctamente</string>
+    <string name="tvSeleccionarImagen">Selecciona la imagen de perfil</string>
+    <string name="tvCancelar">Cancelar</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/searchView"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/searchView"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/switchView"
+        android:title="@string/switchView"
+        app:actionLayout="@layout/switch_item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/iNuevo"
+        android:icon="@drawable/ic_baseline_control_point_24"
+        android:title="@string/iNuevo"
+        app:showAsAction="always" />
+
+</menu>
