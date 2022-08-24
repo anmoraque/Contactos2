@@ -30,6 +30,11 @@ class NuevoContacto : AppCompatActivity() {
     //Creamo una lista con las fotos a seleccionar y su ubicacion
     val fotos = arrayOf(R.drawable.foto_01, R.drawable.foto_02, R.drawable.foto_03, R.drawable.foto_04, R.drawable.foto_05, R.drawable.foto_06)
 
+    /**
+     * La función onCreate de la actividad. Se llama cuando se crea la actividad.
+     *
+     * @param savedInstanceState Un objeto Bundle que contiene el estado guardado previamente de la actividad.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nuevo_contacto)
@@ -52,12 +57,22 @@ class NuevoContacto : AppCompatActivity() {
             rellenarDatos(index)
         }
     }
-    //Funcion que permite inflar el menu
+    /**
+     * Esta función infla el menú y agrega elementos a la barra de acción si está presente
+     *
+     * @param menu El menú para inflar.
+     * @return Se devuelve el método de la superclase.
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_nuevo, menu)
         return super.onCreateOptionsMenu(menu)
     }
-    //Funcion que permite definir los items del menu
+    /**
+     * Funcion que permite definir los items del menu
+     *
+     * @param item El elemento del menú que se seleccionó.
+     * @return un boleano.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //Con un when definimos cada item
         when (item?.itemId) {
@@ -81,7 +96,6 @@ class NuevoContacto : AppCompatActivity() {
                         if (index > -1){
                             //Si el formulario es válido y el index
                             //es mayor a -1 estamos actualizando el contacto
-                            Log.d("ETIQUETA", "Contacto a modificar")
                             //Llamamos la funcion actualizarContacto del MainActivity
                             MainActivity.actualizarContacto(index, Contacto(nombre?.text.toString(), apellido?.text.toString(), empresa?.text.toString(), edad?.text.toString().toInt(), cumpleaños?.text.toString(), direccion?.text.toString(), telefono?.text.toString(), email?.text.toString(), obtenerFoto(fotoIndex)))
                             Toast.makeText(this, R.string.tvContactoModificado, Toast.LENGTH_SHORT).show()
@@ -90,7 +104,6 @@ class NuevoContacto : AppCompatActivity() {
                         }else{
                             //Si el formulario es válido y el index
                             //no es mayor a -1 estamos añadimos un nuevo contacto
-                            Log.d("ETIQUETA", "Contacto nuevo")
                             MainActivity.agregarContacto(Contacto(nombre?.text.toString(), apellido?.text.toString(), empresa?.text.toString(), edad?.text.toString().toInt(), cumpleaños?.text.toString(), direccion?.text.toString(), telefono?.text.toString(), email?.text.toString(), obtenerFoto(fotoIndex)))
                             Toast.makeText(this, R.string.tvContactoAñadido, Toast.LENGTH_SHORT).show()
                             //Terminamos la actividad
@@ -103,6 +116,9 @@ class NuevoContacto : AppCompatActivity() {
         }
     }
     //Inicializamos todas las vistas
+    /**
+     * Inicializa los valores con las vistas.
+     */
     fun iniciarActividad() {
         //Inicializamos los valores con las vistas
         //Con this, me estoy refiriendo a la propia pantalla que estoy visualizando en este momento
@@ -116,7 +132,11 @@ class NuevoContacto : AppCompatActivity() {
         empresa = findViewById(R.id.tvEmpresaNuevo)
         fotoContacto = findViewById(R.id.imageNuevo)
     }
-    //Valida el teléfono
+    /**
+     * Valida el teléfono.
+     *
+     * @return un valor boleano.
+     */
     private fun esTelefonoValido(): Boolean {
         var telefono_valido = false
         var telefono: String = this.telefono?.text.toString()
@@ -125,7 +145,11 @@ class NuevoContacto : AppCompatActivity() {
         telefono_valido = pattern.matcher(telefono).matches()
         return telefono_valido
     }
-    //Valida el nombre
+    /**
+     * Valida el nombre.
+     *
+     * @return un valor boleano.
+     */
     private fun esNombreValido(): Boolean {
         var nombre_valido = false
         var nombre: String = this.nombre?.text.toString()
@@ -134,7 +158,11 @@ class NuevoContacto : AppCompatActivity() {
         nombre_valido = nombre != null && nombre.matches("[a-zA-Z áéíóúÁÉÍÓÚñÑ\\s]+".toRegex())
         return nombre_valido
     }
-    //Valida el apellido
+    /**
+     * Valida el apellido.
+     *
+     * @return un valor boleano.
+     */
     private fun esApellidoValido(): Boolean {
         var apellido_valido = false
         var apellido: String = this.apellido?.text.toString()
@@ -143,7 +171,11 @@ class NuevoContacto : AppCompatActivity() {
         apellido_valido = apellido != null && apellido.matches("[a-zA-Z áéíóúÁÉÍÓÚñÑ\\s]+".toRegex())
         return apellido_valido
     }
-    //Valida la empresa
+    /**
+     * Valida la empresa
+     *
+     * @return un valor boleano.
+     */
     private fun esEmpresaValido(): Boolean {
         var empresa_valido = false
         var empresa: String = this.empresa?.text.toString()
@@ -153,7 +185,11 @@ class NuevoContacto : AppCompatActivity() {
             empresa != null && empresa.matches("[a-zA-Z áéíóúÁÉÍÓÚñÑ\\s]+".toRegex())
         return empresa_valido
     }
-    //Valida el cumpleaños
+    /**
+     * Valida el cumpleaños.
+     *
+     * @return un valor boleano.
+     */
     private fun esCumpleañosValido(): Boolean {
         var cumpleaño_valido = false
         var cumpleaño: String = this.cumpleaños?.text.toString()
@@ -162,7 +198,11 @@ class NuevoContacto : AppCompatActivity() {
         cumpleaño_valido = cumpleaño != null && cumpleaño.matches("[0-9/]+".toRegex())
         return cumpleaño_valido
     }
-    //Valida el edad
+    /**
+     * Valida el edad.
+     *
+     * @return un valor boleano.
+     */
     private fun esEdadValido(): Boolean {
         var edad_valido = false
         var edad: String = this.edad?.text.toString()
@@ -171,7 +211,11 @@ class NuevoContacto : AppCompatActivity() {
         edad_valido = edad != null && edad.matches("[0-9]+".toRegex())
         return edad_valido
     }
-    //Valida la dirección
+    /**
+     * Valida la dirección.
+     *
+     * @return un valor boleano.
+     */
     private fun esDireccionValida(): Boolean {
         var direccion_valida = false
         var direccion: String = this.direccion?.text.toString()
@@ -180,7 +224,11 @@ class NuevoContacto : AppCompatActivity() {
         direccion_valida = direccion != null && direccion.matches("[a-zA-Z0-9,.ªº()áéíóúÁÉÍÓÚñÑ\\s]+".toRegex())
         return direccion_valida
     }
-    //Valida el email
+    /**
+     * Valida el email.
+     *
+     * @return un valor boleano.
+     */
     private fun esEmailValido(): Boolean {
         var email_valido = false
         var email: String = this.email?.text.toString()
@@ -189,7 +237,11 @@ class NuevoContacto : AppCompatActivity() {
         email_valido = pattern.matcher(email).matches()
         return email_valido
     }
-    //Valida el formulario completo
+    /**
+     * Valida el formulario completo.
+     *
+     * @return un valor boleano.
+     */
     private fun esFormularioValido(): Boolean {
         //LOS BOOLEAN SE INICIALIZAN A FALSE POR DEFECTO
         var formulario_valido = false
@@ -214,7 +266,9 @@ class NuevoContacto : AppCompatActivity() {
             telefono_valido && nombre_valido && apellido_valido && empresa_valida && cumpleaños_valido && edad_valido && direccion_valido && email_valido
         return formulario_valido
     }
-    //Esta funcion me va a permitir seleccionar una foto
+    /**
+     * Crea un cuadro de diálogo con una lista de imágenes para elegir.
+     */
     fun seleccionarFoto(){
         //Creamos un AlertDialog
         val builder = AlertDialog.Builder(this)
@@ -241,11 +295,21 @@ class NuevoContacto : AppCompatActivity() {
         //Por ultimo lo mostramos
         builder.show()
     }
-    //Creamos otra funcion para obtener la foto donde se pide un indice y va a regresar un numero
-    //Que sera la foto a escoger
+    /**
+     * Devuelve la foto en el índice dado.
+     *
+     * @param index El índice del elemento en la lista.
+     * @return el valor del índice del ArrayList.
+     */
     fun obtenerFoto(index: Int): Int{
         return fotos.get(index)
     }
+    /**
+     * Creamos un nuevo contacto con la función obtenerContacto de MainActivity pasando el índice,
+     * luego usamos setText en lugar de .text y al final especificamos que es editable
+     *
+     * @param index Int
+     */
     fun rellenarDatos(index: Int){
         //Creamos un nuevo contacto con la funcion obtenerContacto del MainActivity
         //pasandole el index

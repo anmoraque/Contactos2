@@ -1,10 +1,10 @@
 package com.anmoraque.contactos2
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +22,14 @@ class Detalle : AppCompatActivity() {
     //Creamos una variable global en la actividad para el index (id del contacto)
     var index: Int = 0
 
+    /**
+     * Esta función se llama cuando se crea la actividad, establece la vista de contenido en el
+     * diseño de actividad_detalle, crea un botón Atrás, obtiene la ID del intent y la pasa a un
+     * Int variable, y luego llama a la función iniciarActividad
+     *
+     * @param savedInstanceState Un objeto Bundle que contiene el estado guardado previamente de la actividad.
+     * Si la actividad nunca ha existido antes, el valor del objeto Bundle es nulo.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalle)
@@ -33,7 +41,9 @@ class Detalle : AppCompatActivity() {
         //Inicializamos los valores con las vistas mediante la funcion iniciarActividad
         iniciarActividad()
     }
-    //Inicializamos todas las vistas
+    /**
+     * Inicializamos todas las vistas.
+     */
     fun iniciarActividad() {
         //Creo una variable para traer el contacto del MainActivity con el Id igual al index lo casteo a Int
         val contacto = MainActivity.obtenerContacto(index)
@@ -57,12 +67,22 @@ class Detalle : AppCompatActivity() {
         empresa?.text = contacto.empresa
         fotoContacto?.setImageResource(contacto.foto)
     }
-    //Funcion que permite inflar el menu
+    /**
+     * Esta función infla el menú y agrega elementos a la barra de acción si está presente
+     *
+     * @param menu El menú para inflar.
+     * @return El método de la superclase está siendo devuelto..
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_detalle, menu)
         return super.onCreateOptionsMenu(menu)
     }
-    //Funcion que permite definir los items del menu
+    /**
+     * La función que se llama cuando se selecciona un elemento del menú.
+     *
+     * @param item El elemento del menú que se seleccionó.
+     * @return un booleano.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //Con un when definimos cada item
         when (item.itemId) {
@@ -77,8 +97,18 @@ class Detalle : AppCompatActivity() {
             //Llamamos a la funcion eliminar contacto y le pasamos
             //el index que llego del intent y luego un finish
             R.id.iEliminar -> {
-                MainActivity.eliminarContacto(index)
-                finish()
+                //Creamos un dialogo de alerta
+                val builderEliminar = AlertDialog.Builder(this)
+                //Le ponemos un titulo
+                builderEliminar.setTitle(R.string.tvEliminarConatcto)
+                //Ponemos un boton por si desea cancelar
+                builderEliminar.setNegativeButton(R.string.tvCancelar){ dialog, which -> dialog.dismiss() }
+                //Ponemos un boton por si desea aceptar
+                builderEliminar.setPositiveButton(R.string.tvAceptar){ dialog, which ->
+                    dialog.apply { MainActivity.eliminarContacto(index)
+                        finish() } }
+                //Por ultimo lo mostramos
+                builderEliminar.show()
                 return true
             }
             //Al boton de atras le hacemos finish para que se termine la actividad
@@ -90,7 +120,9 @@ class Detalle : AppCompatActivity() {
             else -> { return super.onOptionsItemSelected(item) }
         }
     }
-    //En on resume volvemos a cargar las vistas para que el contacto modificado se vea
+    /**
+     * Inicializa los valores con las vistas mediante la función iniciarActividad.
+     */
     override fun onResume() {
         super.onResume()
         //Inicializamos los valores con las vistas mediante la funcion iniciarActividad

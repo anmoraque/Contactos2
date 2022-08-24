@@ -4,13 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.TextView
 
 //Definimos el adaptador para que coja de referencia el archivo
-//template_contacto para nuestra ListView
+//template_contacto_grid para nuestra ListView
 //Voy a recibir el contexto y cada contacto del ArrayList, heredo de BaseAdapter
-class AdaptadorCustom(var contexto: Context, items: ArrayList<Contacto>): BaseAdapter() {
-
+class AdaptadorCustomGrid(var contexto: Context, items: ArrayList<Contacto>): BaseAdapter() {
     //Creo la variable para almacenar cada elemento a mostrar en el ListView (cada contacto)
     //Esta si se modifica
     var items: ArrayList<Contacto>? = null
@@ -24,42 +25,43 @@ class AdaptadorCustom(var contexto: Context, items: ArrayList<Contacto>): BaseAd
         //a nivel memoria pero si a nivel contenido
         this.copiaItems = items
     }
+    //Aqui regreso el numero de elementos de mi lista
     /**
-     * Aqui regreso el numero de items de mi lista.
+     * It returns the number of items in the list.
      *
-     * @return El numero de items en la lista.
+     * @return The number of items in the list.
      */
     override fun getCount(): Int {
         //Retorno el contador de items, lo pongo opcional ? y para obtener el valor de la propiedad !!
         return this.items?.count()!!
     }
+    //Aqui regresamos el objeto entero (el contacto entero)
     /**
-     * Aqui regresamos el objeto entero (el contacto entero)
-     * La función devuelve el elemento en la posición que se tocó (contacto tocado), lo puse
-     * ¿opcional? Y para obtener el valor de la propiedad !!
+     * The function returns the item at the position that was touched (touched contact), I put it
+     * optional? And to get the value of the property !!
      *
-     * @param p0 Int: La posición del elemento dentro del conjunto de datos del adaptador
-     * es el elemento cuya vista queremos.
-     * @return El elemento en la posición tocado (contacto tocado), lo pongo opcional?
-     * Y para obtener el valor de la propiedad !!
+     * @param p0 Int: The position of the item within the adapter's data set of the item whose view we
+     * want.
+     * @return The item in the position touched (touched contact), I put it optional? And to get the
+     * value of the property !!
      */
     override fun getItem(p0: Int): Any {
         //Retorno el item de la posicion tocada (contacto tocado), lo pongo opcional ? y para obtener el valor de la propiedad !!
         return items?.get(p0)!!
     }
+    //Aqui regreso (obtengo) la posicion del item (contacto) que seleccionemos
     /**
-     * Aqui regreso (obtengo) la posicion del item (contacto) que seleccionemos
-     * Devuelve la posición del elemento en la lista.
+     * It returns the position of the item in the list.
      *
-     * @param p0 La posición del elemento dentro del conjunto de datos del adaptador
-     * es el elemento cuya vista queremos.
-     * @return La posición del elemento en la lista.
+     * @param p0 The position of the item within the adapter's data set of the item whose view we want.
+     * @return The position of the item in the list.
      */
     override fun getItemId(p0: Int): Long {
         return p0.toLong()
     }
+    //Creamos una funcion para agregar un item (para agregar un contacto)
     /**
-     * Agrega un elemento a la lista.
+     * It adds an item to the list.
      *
      * @param item Contacto
      */
@@ -71,8 +73,9 @@ class AdaptadorCustom(var contexto: Context, items: ArrayList<Contacto>): BaseAd
         //Para que vuelva a renderizar usamos esta funcion
         notifyDataSetChanged()
     }
+    //Creamos una funcion para eliminar un item (eliminar un contacto)
     /**
-     * Elimina un elemento de la lista.
+     * It removes an item from the list.
      *
      * @param index Int
      */
@@ -84,11 +87,10 @@ class AdaptadorCustom(var contexto: Context, items: ArrayList<Contacto>): BaseAd
         //Para que vuelva a renderizar usamos esta funcion
         notifyDataSetChanged()
     }
+    //Creamos una funcion para actualizar un item (actualizar un contacto)
     /**
-     * Creamos una funcion para actualizar un item (actualizar un contacto)
-     * Actualizamos el elemento en la lista no modificable, luego hacemos una copia de esa lista
-     * a la lista modificable y finalmente llamamos a la función notificarDataSetChanged()
-     * para representar los cambios.
+     * We update the item in the unmodifiable list, then we make a copy of the unmodifiable list to the
+     * modifiable list, and finally we call the notifyDataSetChanged() function to render the changes
      *
      * @param index The index of the item to be updated.
      * @param nuevoItem Contacto
@@ -101,16 +103,20 @@ class AdaptadorCustom(var contexto: Context, items: ArrayList<Contacto>): BaseAd
         //Para que vuelva a renderizar usamos esta funcion
         notifyDataSetChanged()
     }
+    //Aqui asociamos el renderizado de los elementos con el objeto asociado (en este caso con clase Contacto)
+    //Para esto se necesita un ViewHolder (funcion echa mas abajo)
     /**
-     * Aqui asociamos el renderizado de los elementos con el objeto asociado (en este caso con clase Contacto)
-     * Para esto se necesita un ViewHolder (funcion echa mas abajo)
+     * We create a viewHolder variable, then we create a view variable and assign it to the view that
+     * the function is asking us to reference (p1). Then we validate if the view is empty or not. If it
+     * is empty, we inflate the template_contacto_grid layout, then we define the viewHolder, and give
+     * it a TAG to identify the view. If the view is not empty, we assign the viewHolder to the view's
+     * TAG. Then we create a variable with the position that the item occupies and cast it to a
+     * Contacto. Finally, we assign the values to the graphic elements
      *
-     * @param p0 La posición del elemento dentro del conjunto de datos del adaptador del elemento cuya vista queremos.
-     * @param p1 View? - La vieja vista para reutilizar, si es posible. Nota: Debe comprobar que esta vista es
-     * no nulo y de un tipo apropiado antes de usar. Si no es posible convertir esta vista a
-     * mostrar los datos correctos, este método puede crear una nueva vista.
+     * @param p0 The position of the item within the adapter's data set of the item whose view we want.
+     * @param p1 View? = The view that is being recycled.
      * @param p2 ViewGroup?
-     * @return La vista
+     * @return The view
      */
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         //Creo la variable del viewHolder
@@ -119,8 +125,8 @@ class AdaptadorCustom(var contexto: Context, items: ArrayList<Contacto>): BaseAd
         var vista: View? = p1
         //Validamos si esta vista esta vacia o tiene algo
         if (vista == null){
-            //Si esta vacia le inflamos el template_contacto
-            vista = LayoutInflater.from(contexto).inflate(R.layout.template_contacto, null)
+            //Si esta vacia le inflamos el template_contacto_grid
+            vista = LayoutInflater.from(contexto).inflate(R.layout.template_contacto_grid, null)
             //Ahora definimos el holder
             viewHolder = ViewHolder(vista)
             //Damos un TAG para identificar la vista
@@ -133,15 +139,19 @@ class AdaptadorCustom(var contexto: Context, items: ArrayList<Contacto>): BaseAd
         val item = getItem(p0) as Contacto
         //Le asignamos los valores a los elementos graficos
         viewHolder?.nombre?.text = item.nombre + " " + item.apellidos
-        viewHolder?.empresa?.text = item.empresa
         viewHolder?.foto?.setImageResource(item.foto)
         return vista!!
     }
+    //Creamos una funcion para filtrar la busqueda, recibo un texto de busqueda (str)
     /**
-     * Creamos la funcion para filtrar la busqueda, recibo un texto de busqueda (str)
+     * We create a copy of the items list, then we clear the items list, then we check if the search
+     * text is empty, if it is, we set the items list to the copy of the items list, if it isn't, we
+     * create a variable with the search text, then we loop through the copy of the items list and
+     * check if the name of the item contains the search text, if it does, we add it to the items list,
+     * if it doesn't, we don't add it to the items list
      *
      * @param str String
-     * @return el numero de elementos de la lista
+     * @return the number of items in the list.
      */
     fun filtrar(str: String){
         //Necesito hacer una copia exacta de la informacion
@@ -175,18 +185,19 @@ class AdaptadorCustom(var contexto: Context, items: ArrayList<Contacto>): BaseAd
         //Para que vuelva a renderizar usamos esta funcion
         notifyDataSetChanged()
     }
-    /* La clase ViewHolder es una clase que contiene las vistas que necesitamos para completar la lista */
+    //Voy a requerir una vista como parametro
+    /* The ViewHolder class is a class that is used to hold the views that are used in the
+     * RecyclerView.
+    */
     private class ViewHolder(vista: View) {
         //A esta vista le cargo los elementos y los inicializo
         //¿Que elementos necesito para el template_contacto?
-        //El nombre, la empresa y la foto. Pues los creo
+        //El nombre y la foto. Pues los creo
         var nombre: TextView? = null
-        var empresa: TextView? = null
         var foto: ImageView? = null
         init {
-            nombre = vista.findViewById(R.id.tvNombre)
-            empresa = vista.findViewById(R.id.tvEmpresa)
-            foto = vista.findViewById(R.id.ivFoto)
+            nombre = vista.findViewById(R.id.tvNombreGrid)
+            foto = vista.findViewById(R.id.ivFotoGrid)
         }
     }
 }

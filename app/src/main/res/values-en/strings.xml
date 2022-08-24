@@ -22,4 +22,8 @@
     <string name="tvContactoAñadido">Contact added successfully</string>
     <string name="tvSeleccionarImagen">Select profile picture</string>
     <string name="tvCancelar">Cancel</string>
+    <string name="tvBuscarContacto">Search contact...</string>
+    <string name="tvAceptar">Accept</string>
+    <string name="tvEliminarConatcto">Do you want to delete the contact?</string>
+    <string name="tvCambioVista">Change of view</string>
 </resources>
